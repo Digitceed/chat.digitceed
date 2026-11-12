@@ -128,6 +128,7 @@ const restoreDecided = new Promise<void>((resolve) => { resolveRestoreDecided = 
 // Repaint neu mounten.
 const loadModelManager = () => import('../models/ModelManager').then((m) => ({ default: m.ModelManager }))
 const loadBenchmarkView = () => import('../models/BenchmarkView').then((m) => ({ default: m.BenchmarkView }))
+const loadAutomationsView = () => import('../automations/AutomationsView').then((m) => ({ default: m.AutomationsView }))
 const loadSettingsPage = () => import('../settings/SettingsPage').then((m) => ({ default: m.SettingsPage }))
 const loadCreateExperimental = () => import('../create/experimental/CreateExperimental').then((m) => ({ default: m.CreateExperimental }))
 const loadNeuronView = () => import('../neuron/NeuronView').then((m) => ({ default: m.NeuronView }))
@@ -185,6 +186,17 @@ export function AppShell() {
   // T2: the tray menu's lines (account or engine, model, memory).
   useTraySync()
   useCloudOutageWatch()
+  // Digitceed AI: the clock for 24/7 agents and scheduled Security checks.
+  // Loaded lazily so the agent engine is not pulled into first paint; the
+  // window stays alive in the tray, so the clock keeps running there too.
+  useEffect(() => {
+    let stop: (() => void) | null = null
+    let cancelled = false
+    void import('../../lib/automation-scheduler').then((m) => {
+      if (!cancelled) stop = m.startAutomationScheduler()
+    })
+    return () => { cancelled = true; stop?.() }
+  }, [])
   useNeuronFollowsPersona()
 
   // ── Global Local/Cloud mode (2.5.7) — appMode drives everything ──
@@ -1207,6 +1219,7 @@ export function AppShell() {
                 statt bis zur Root-Boundary durchzuschlagen. */}
             {currentView === 'models' && <LazyView load={loadModelManager} fallback={<ModelManagerSkeleton />} />}
             {currentView === 'benchmark' && <LazyView load={loadBenchmarkView} fallback={<BenchmarkSkeleton />} />}
+            {currentView === 'automations' && <LazyView load={loadAutomationsView} fallback={<BenchmarkSkeleton />} />}
             {currentView === 'settings' && <LazyView load={loadSettingsPage} fallback={<SettingsSkeleton />} />}
             {currentView === 'create' && <LazyView load={loadCreateExperimental} fallback={<CreateSkeleton />} />}
             {currentView === 'voice' && <LazyView load={loadVoiceView} fallback={<VoiceSkeleton />} />}

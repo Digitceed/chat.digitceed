@@ -4,7 +4,7 @@ import { safeJSONStorage } from '../lib/storage-quota'
 import type { SettingsTab } from '../lib/settings-reset'
 import { visibleView } from '../lib/features'
 
-export type View = 'chat' | 'models' | 'settings' | 'create' | 'benchmark' | 'voice' | 'neuron'
+export type View = 'chat' | 'models' | 'settings' | 'create' | 'benchmark' | 'voice' | 'neuron' | 'automations'
 
 /** Which collapsible section of the Settings page a deep link wants open.
  *  Only sections a hint elsewhere in the app sends people to. */

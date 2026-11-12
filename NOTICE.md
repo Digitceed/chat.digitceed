@@ -37,6 +37,11 @@ The modifications are released under the same license, AGPL-3.0-only.
 
 - "Cloud features in Local mode" is off by default (`src/lib/constants.ts`), and the Cloud switch in the header shows only when that setting is on (`src/components/layout/Header.tsx`).
 
+**Agents & Security (new in Digitceed AI)**
+
+- A new page, Agents (`src/components/automations`), with two parts: Security checks that inspect the computer from a question in plain words or from nine fixed checks (open ports, firewall, antivirus, updates, user accounts, remote access, startup items, disk encryption, failed logins), and 24/7 agents the user describes in words and gives a schedule.
+- Automations run on their own while the app runs, also when the window is closed to the tray (`src/lib/automation-scheduler.ts`, `src/lib/automation-runner.ts`, `src/stores/automationStore.ts`). Each one may only use the tools chosen for it; Security checks may only run inspection commands (`src/lib/security-command-classify.ts`).
+
 **Installer**
 
 - The step in `src-tauri/windows/installer-hooks.nsh` that removed an installed copy under an earlier product name was taken out, so this installer never touches an installed copy of the original app.

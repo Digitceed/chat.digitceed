@@ -3,6 +3,7 @@ import { yieldSilentLocalRuns } from '../../lib/silent-runs'
 import { usePopoverPlatz } from '../../hooks/usePopoverPlatz'
 import { Menu, Loader2, Sun, Moon, RefreshCw, X, MoreVertical } from 'lucide-react'
 import { useUIStore } from '../../stores/uiStore'
+import { useAutomationStore } from '../../stores/automationStore'
 import { useSettingsStore } from '../../stores/settingsStore'
 import { useChatStore } from '../../stores/chatStore'
 import { useCompareStore, openCompare } from '../../stores/compareStore'
@@ -48,6 +49,8 @@ interface NavTarget {
 const NAV_TARGETS: readonly NavTarget[] = [
   { id: 'chat', label: 'Chat', view: 'chat' },
   { id: 'create', label: 'Create', view: 'create' },
+  // Digitceed AI: 24/7 agents and prompt-driven Security checks.
+  { id: 'automations', label: 'Agents', view: 'automations' },
   // Voice has no cloud service yet, so with the Cloud switch on it goes the
   // way Benchmark and Models go.
   { id: 'voice', label: 'Voice', view: 'voice', localOnly: true },
@@ -81,6 +84,7 @@ export function Header() {
   const addStaleToHealth = useModelHealthStore((s) => s.setStaleModels)
   const markHealthFresh = useModelHealthStore((s) => s.markFresh)
   const [showMoreMenu, setShowMoreMenu] = useState(false)
+  const automationAlerts = useAutomationStore((s) => s.unreadAlerts)
 
   // App-level model bootstrap. This used to ride on the header ModelSelector,
   // which sat here always-mounted; the picker has moved into the composer
@@ -455,6 +459,9 @@ export function Header() {
               className={navClass(isNavActive(t))}
             >
               {t.label}
+              {t.id === 'automations' && automationAlerts > 0 && (
+                <span className="ml-1 inline-flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold align-middle">{automationAlerts}</span>
+              )}
             </button>
           ))}
         </div>

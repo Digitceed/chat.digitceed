@@ -121,6 +121,7 @@ export function buildCommands(ctx: CommandContext): Command[] {
     // Navigation — dieselben Ziele wie die Kopfzeile (`Header.tsx:287-304`).
     { id: 'view-chat', label: 'Chat', group: GROUP_VIEW, run: () => ctx.setView('chat') },
     { id: 'view-create', label: 'Create', group: GROUP_VIEW, run: () => ctx.setView('create') },
+    { id: 'view-automations', label: 'Agents & Security', group: GROUP_VIEW, run: () => ctx.setView('automations') },
     { id: 'view-compare', label: 'Compare models', group: GROUP_VIEW, run: ctx.openCompare },
   ]
 

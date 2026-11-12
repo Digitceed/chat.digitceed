@@ -8,9 +8,17 @@ A local AI studio for the desktop: chat, image and video generation and a coding
 
 Digitceed AI is a **modified version of [Locally Uncensored](https://github.com/PurpleDoubleD/locally-uncensored)** by PurpleDoubleD, based on its source as of 2026-11-09 (commit `3dff4291`, version 3.0.10). It is licensed under **AGPL-3.0-only**, like the original. What was changed is listed in [NOTICE.md](NOTICE.md). The original project's README is kept as [README.upstream.md](README.upstream.md); it describes the features, the supported models and the hardware needs, which are the same here.
 
+## New in Digitceed AI: Agents & Security
+
+The **Agents** tab adds two things the original does not have, both running on your own computer with your own model:
+
+- **Security in plain words.** Ask "Is my firewall on, and can anyone reach this PC from outside?" or press **Full security scan**. The app inspects the machine (open ports, firewall, Defender, updates, user accounts, Remote Desktop and shares, startup items, BitLocker, failed logins) and writes a report with `STATUS: OK / WARNING / CRITICAL` and what to do. It only looks, it never changes a setting: every command passes an allowlist of read-only commands first. Schedule it, for example every night at 02:00.
+- **24/7 agents.** Describe a task ("check every 15 minutes that our webshop loads", "every morning the 5 most important news items for our industry"), choose what the agent may do on its own (search the web, open pages, read or write files, the terminal read-only or fully) and when it runs. Agents keep running while Digitceed AI sits in the tray. An answer that starts with `ALERT` raises a warning badge and a desktop notification.
+
 ## What is different from the original
 
 - Name, logo and icons are Digitceed AI.
+- The Agents tab (Security checks and 24/7 agents, see above).
 - It installs next to the original without sharing anything: its own app identifier, data folders, keychain entry and link scheme (`digitceedai://`).
 - The built-in updater is off. The original updater would replace this build with the original app. To update, install a newer Digitceed AI installer over the old one.
 - LU Cloud, the paid hosted service of LU Labs, is hidden by default. It can be turned on in Settings, General ("Cloud features in Local mode"). It remains a service of LU Labs, not of Digitceed.

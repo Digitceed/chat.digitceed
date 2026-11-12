@@ -43,6 +43,7 @@ const LAZY_VIEWS = [
   ['Onboarding', '../onboarding/Onboarding'],
   ['VoiceView', '../voice/VoiceView'],
   ['NeuronView', '../neuron/NeuronView'],
+  ['AutomationsView', '../automations/AutomationsView'],
 ] as const
 
 describe('der Boot-View bleibt statisch', () => {
